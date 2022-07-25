@@ -5,7 +5,7 @@
        WORKING-STORAGE SECTION. 
        01 GRADE-DATA PIC X(90) VALUE "39030261JAKKRIT         886345593B
       -    " 886352593D+886342193B+886478593C 886481592C+886491591A ".
-       01 GRADE.
+       01 GRADE REDEFINES  GRADE-DATA.
            03 STU-ID      PIC 9(8).
            03 STU-NAME    PIC X(16).
            03 SUB1.
@@ -32,7 +32,13 @@
               05 SUB-CODE6   PIC 9(8).
               05 SUB-UNIT6   PIC 9.
               05 SUB-GRADE6  PIC X(2).
-           
+       66 STUDENT-ID RENAMES  STU-ID.
+       66 STUDENT-INFO RENAMES STU-ID THRU SUB-UNIT1. 
+       01 STUCODE REDEFINES  GRADE-DATA .
+           05 STU-YEAR PIC 9(2).
+           05 FILLER  PIC X(6).
+           05 STU-SHORT-NAME PIC X(3).
+
        PROCEDURE DIVISION.
        Begin.
            MOVE GRADE-DATA TO GRADE.
@@ -74,4 +80,6 @@
            DISPLAY "GRADE: " SUB-GRADE6
 
            DISPLAY SUB3
+           DISPLAY STUDENT-INFO
+           DISPLAY STU-YEAR STU-SHORT-NAME
            .
